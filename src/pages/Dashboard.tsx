@@ -33,11 +33,19 @@ interface DashboardProps {
 export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
   const { habits, addHabit, toggleHabit, deleteHabit, getWeeklyProgress } = useHabits();
   const { theme } = useTheme();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newHabitTitle, setNewHabitTitle] = useState('');
 
-  const weeklyData = getWeeklyProgress();
+  const localeMap: Record<string, string> = {
+    pt: 'pt-BR',
+    en: 'en-US',
+    es: 'es-ES',
+  };
+
+  const currentLocale = localeMap[language] || 'pt-BR';
+
+  const weeklyData = getWeeklyProgress(currentLocale);
   const today = new Date();
 
   const handleAddHabit = (e: React.FormEvent) => {
@@ -81,7 +89,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
                   {t('dashboard.myHabits')}
                 </h1>
                 <p className="text-gray-500 dark:text-gray-400">
-                  {formatDate(today)}
+                  {formatDate(today, currentLocale)}
                 </p>
               </div>
               <Button onClick={() => setIsModalOpen(true)}>
@@ -178,7 +186,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
                       {weeklyData.map((entry, index) => (
                         <Cell
                           key={`cell-${index}`}
-                          fill={entry.day === new Intl.DateTimeFormat('pt-BR', { weekday: 'short' }).format(today) ? '#3b82f6' : '#93c5fd'}
+                          fill={entry.day === new Intl.DateTimeFormat(currentLocale, { weekday: 'short' }).format(today) ? '#3b82f6' : '#93c5fd'}
                         />
                       ))}
                     </Bar>

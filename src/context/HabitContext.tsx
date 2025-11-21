@@ -15,7 +15,7 @@ interface HabitContextType {
   addHabit: (title: string) => void;
   toggleHabit: (id: string) => void;
   deleteHabit: (id: string) => void;
-  getWeeklyProgress: () => { day: string; count: number }[];
+  getWeeklyProgress: (locale?: string) => { day: string; count: number }[];
 }
 
 const HabitContext = createContext<HabitContextType | undefined>(undefined);
@@ -77,7 +77,7 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setHabits(habits.filter((h) => h.id !== id));
   };
 
-  const getWeeklyProgress = () => {
+  const getWeeklyProgress = (locale: string = 'pt-BR') => {
     const today = new Date();
     const last7Days = [];
 
@@ -94,7 +94,7 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }, 0);
 
       return {
-        day: new Intl.DateTimeFormat('pt-BR', { weekday: 'short' }).format(date),
+        day: new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(date),
         count,
       };
     });

@@ -14,6 +14,7 @@ export const translations = {
       loading: 'Loading...',
       success: 'Success',
       error: 'Error',
+      settings: 'Settings',
     },
     landing: {
       heroTitle: 'Build better habits,',
@@ -88,6 +89,7 @@ export const translations = {
       loading: 'Carregando...',
       success: 'Sucesso',
       error: 'Erro',
+      settings: 'Configurações',
     },
     landing: {
       heroTitle: 'Construa hábitos melhores,',
@@ -162,6 +164,7 @@ export const translations = {
       loading: 'Cargando...',
       success: 'Éxito',
       error: 'Error',
+      settings: 'Configuraciones',
     },
     landing: {
       heroTitle: 'Construye mejores hábitos,',
